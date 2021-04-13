@@ -33,11 +33,11 @@ class CBPRestClient(RestClient):
             'User-Agent': 'Mosaic/1.0'
         }
         if(message):
-            self.sign_message(''.join([timestamp, message]))
+            self._sign_message(''.join([timestamp, message]))
 
         RestClient.set_headers(self, self.headers)
 
-    def sign_message(self, message):
+    def _sign_message(self, message):
         message = message.encode('ascii')
         hmac_key = base64.b64decode(self.api_secret)
         signature = hmac.new(hmac_key, message, hashlib.sha256)
