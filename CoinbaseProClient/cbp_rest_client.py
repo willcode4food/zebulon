@@ -4,13 +4,14 @@ import hashlib
 import base64
 import time
 
-from client import RestClient
+from Client import RestClient
+from constants import client_constants
 
 
 class CBPRestClient(RestClient):
 
     def __init__(self, api_key, api_secret, api_passphrase):
-        self.api_url = 'https://api.pro.coinbase.com'
+        self.api_url = client_constants.API_URL_REST
         self.api_key = api_key
         self.api_secret = api_secret
         self.api_passphrase = api_passphrase

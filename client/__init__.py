@@ -1,2 +1,2 @@
 from .rest_client import RestClient
-from .cbp_rest_client import CBPRestClient
+from .socket_client import SocketClient

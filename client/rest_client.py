@@ -1,9 +1,9 @@
 import requests
 
-from .cbp_client import CBPClient
+from .Client import Client
 
 
-class RestClient(CBPClient):
+class RestClient(Client):
     def __init__(self, api_key, api_secret, api_passphrase):
         self.session = requests.Session()
         self.response = None
