@@ -4,7 +4,7 @@ from .Client import Client
 
 
 class RestClient(Client):
-    def __init__(self, api_key, api_secret, api_passphrase):
+    def __init__(self):
         self.session = requests.Session()
         self.response = None
         self.headers = None

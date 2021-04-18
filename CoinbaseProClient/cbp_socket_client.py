@@ -1,12 +1,11 @@
+from .cbp_client import CBPClient
 from Client import SocketClient
 
 
-class CBPSocketClient(SocketClient):
+class CBPSocketClient(SocketClient, CBPClient):
 
     def __init__(self, api_key, api_secret, api_passphrase):
         self.api_url = 'wss://ws-feed.pro.coinbase.com'
-        self.api_key = api_key
-        self.api_secret = api_secret
-        self.api_passphrase = api_passphrase
+        CBPClient.__init__(self, api_key, api_secret, api_passphrase)
         # self.channels = [{"name": "ticker", "product_ids": [
         #     product_id for product_id in self.products]}]
