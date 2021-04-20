@@ -19,7 +19,6 @@ class WebSocketStateAction(StateAction):
         return hash(self.action)
 
 
-WebSocketStateAction.close = WebSocketStateAction(actions_constants.CLOSE)
 WebSocketStateAction.connect = WebSocketStateAction(actions_constants.CONNECT)
 WebSocketStateAction.disconnect = WebSocketStateAction(
     actions_constants.DISCONNECT)

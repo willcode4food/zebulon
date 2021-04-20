@@ -1,11 +1,14 @@
-
 from State import State
-from threading import Thread
 
 
 class WebSocketState(State):
-    def run(self):
+    def __init__(self):
         self.transitions = {}
+        self.keep_alive = None
+        self.main_thread = None
+        self.web_socket = None
+
+    def run(self):
         return
 
     def next(self, action):

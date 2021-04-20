@@ -1,6 +1,6 @@
 import os
 
-from client import CBPRestClient
+from CoinbaseProClient import CBPRestClient
 
 
 api_key = os.environ.get('COINBASE_API_KEY')

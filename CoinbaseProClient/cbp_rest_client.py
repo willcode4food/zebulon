@@ -23,4 +23,5 @@ class CBPRestClient(RestClient, CBPClient):
         return RestClient.__call__(self, method, endpoint_url, body)
 
     def set_headers(self, message):
+        CBPClient.set_headers(self, message)
         RestClient.set_headers(self, self.headers)
