@@ -2,14 +2,16 @@ from .cbp_client import CBPClient
 from Client import SocketClient
 from WebSocketStateMachine import WebSocketStateMachine
 from constants import actions_constants
+from constants import client_constants
 
 
 class CBPSocketClient(SocketClient, CBPClient):
 
     def __init__(self, api_key, api_secret, api_passphrase):
-        self.api_url = 'wss://ws-feed.pro.coinbase.com'
         CBPClient.__init__(self, api_key, api_secret, api_passphrase)
+        SocketClient.__init__(self, api_key, api_secret, api_passphrase)
         self.state_machine = None
+        self.api_url = client_constants.API_URL_SOCKET
 
     def __call__(self, products):
         self.products = products
@@ -30,13 +32,12 @@ class CBPSocketClient(SocketClient, CBPClient):
     def start(self):
         self.state_machine = WebSocketStateMachine(
             actions_constants.START, self.api_url)
-        WebSocketStateMachine.runAll(self.state_machine,
-                                     [actions_constants.CONNECT, actions_constants.DISCONNECT])
+        self.state_machine.runAll(
+            [actions_constants.CONNECT, actions_constants.DISCONNECT])
+
         return
 
     def stop(self):
-        if not self.state_machine:
-            print("Web Socket Not Connected")
-            return
-        self.state_machine.runAll(actions_constants.DISCONNECT)
+        if self.state_machine:
+            self.state_machine.runAll([actions_constants.DISCONNECT])
         return

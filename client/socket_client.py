@@ -1,11 +1,10 @@
 from websocket import create_connection, WebSocketConnectionClosedException
 from .client import Client
-from constants import client_constants
 
 
 class SocketClient(Client):
     def __init__(self, api_key, api_secret, api_passphrase):
-        self.api_url = client_constants.API_URL_SOCKET
+        self.api_url = None
         self.headers = None
         self.keep_alive_thread = None
         self.main_thread = None
@@ -23,5 +22,8 @@ class SocketClient(Client):
     def set_headers(self, message):
         return
 
-    def _get_channels(self):
+    def start(self):
+        return
+
+    def stop(self):
         return
