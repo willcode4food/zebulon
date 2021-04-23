@@ -13,9 +13,9 @@ class WebSocketStateMachine(StateMachine):
         stateToInitialize = None
 
         if initialState == actions_constants.START:
-            stateToInitialize = WebSocketStarting(url)
+            stateToInitialize = WebSocketStarting(url, params)
         if initialState == actions_constants.CONNECT:
-            stateToInitialize = WebSocketConnecting(url)
+            stateToInitialize = WebSocketConnecting(url, params)
         if initialState == actions_constants.LISTEN:
             stateToInitialize = WebSocketListening()
         if initialState == actions_constants.KEEP_ALIVE:

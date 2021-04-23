@@ -7,8 +7,9 @@ from constants import actions_constants
 
 
 class WebSocketStarting(WebSocketState):
-    def __init__(self, url):
+    def __init__(self, url, params):
         self.api_url = url
+        self.parameters = params
         WebSocketState.__init__(self)
 
     def run(self):
@@ -18,6 +19,7 @@ class WebSocketStarting(WebSocketState):
     def next(self, action):
         if len(self.transitions) == 0:
             self.transitions = {
-                actions_constants.CONNECT: WebSocketConnecting(self.api_url)
+                actions_constants.CONNECT: WebSocketConnecting(
+                    self.api_url, self.parameters)
             }
         return WebSocketState.next(self, action)

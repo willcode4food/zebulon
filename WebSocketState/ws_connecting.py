@@ -1,4 +1,4 @@
-
+import json
 from State import State
 from .ws_state import WebSocketState
 from WebSocketStateAction import WebSocketStateAction
@@ -10,12 +10,16 @@ from websocket import create_connection
 
 class WebSocketConnecting(WebSocketState):
 
-    def __init__(self, url):
+    def __init__(self, url, params):
         self.api_url = url
+        self.parameters = params
         WebSocketState.__init__(self)
 
     def run(self):
+        # TODO: wrap in try catch
+        print("-- Web Socket Connecting -- ")
         WebSocketState.web_socket = create_connection(self.api_url)
+        WebSocketState.web_socket.send(json.dumps(self.parameters))
         print("-- Web Socket Connected -- ")
         return
 
