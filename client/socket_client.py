@@ -11,7 +11,7 @@ class SocketClient(Client):
         self.web_socket = None
         self.products = None
         self.channels = None
-        self.sub_params = None
+        self.parameters = {}
 
         return
 

@@ -29,9 +29,15 @@ class CBPSocketClient(SocketClient, CBPClient):
     def set_headers(self, message):
         CBPClient.set_headers(self, message)
 
+    def set_paramaters(self):
+        self.parameters['signature'] = self.headers['CB-ACCESS-SIGN']
+        self.parameters['key'] = self.headers['CB-ACCESS-KEY']
+        self.parameters['passphrase'] = self.headers['CB-ACCESS-PASSPHRASE']
+        self.parameters['timestamp'] = self.headers['CB-ACCESS-TIMESTAMP']
+
     def start(self):
         self.state_machine = WebSocketStateMachine(
-            actions_constants.START, self.api_url)
+            actions_constants.START, self.api_url, self.parameters)
         self.state_machine.runAll(
             [actions_constants.CONNECT, actions_constants.DISCONNECT])
 

@@ -9,7 +9,7 @@ from WebSocketState import WebSocketMessaging
 
 
 class WebSocketStateMachine(StateMachine):
-    def __init__(self, initialState, url):
+    def __init__(self, initialState, url, params):
         stateToInitialize = None
 
         if initialState == actions_constants.START:
