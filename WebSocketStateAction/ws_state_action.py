@@ -9,7 +9,7 @@ class WebSocketStateAction(StateAction):
     def __str__(self): return self.action
 
     def __eq__(self, other):
-        return self.action == other.action
+        return self.action == other
 
     # Necessary when __eq__ is defined
     # in order to make this class usable as a

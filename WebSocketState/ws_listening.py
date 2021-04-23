@@ -1,19 +1,23 @@
 
 from State import State
 from .ws_state import WebSocketState
-
 from WebSocketStateAction import WebSocketStateAction
-from WebSocketStateMachine import WebSocketStateMachine
+from .ws_keeping_alive import WebSocketKeepingAlive
+from constants import actions_constants
 
 
 class WebSocketListening(WebSocketState):
+    def __init__(self):
+        WebSocketState.__init__(self)
 
     def run(self):
         print("-- Web Socket Listening --")
-        # self.keep_alive = Thread(target=self._keep_alive)
+
         return
 
     def next(self, action):
-        if action == WebSocketStateAction.disconnect:
-            return WebSocketStateMachine.disconnecting
-        return WebSocketStateMachine.listening
+        if len(self.transitions) == 0:
+            self.transitions = {
+                actions_constants.MESSAGE:  WebSocketKeepingAlive
+            }
+        return WebSocketState.next(self, action)

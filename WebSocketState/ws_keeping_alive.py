@@ -3,7 +3,7 @@ import time
 from State import State
 from .ws_state import WebSocketState
 from WebSocketStateAction import WebSocketStateAction
-from WebSocketStateMachine import WebSocketStateMachine
+from constants import actions_constants
 
 
 class WebSocketKeepingAlive(WebSocketState):
@@ -19,6 +19,8 @@ class WebSocketKeepingAlive(WebSocketState):
         return
 
     def next(self, action):
-        if action == WebSocketStateAction.disconnect:
-            return WebSocketStateMachine.disconnecting
-        return
+        if len(self.transitions) == 0:
+            self.transitions = {
+                actions_constants.MESSAGE:  WebSocketKeepingAlive()
+            }
+        return WebSocketState.next(self, action)

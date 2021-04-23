@@ -6,6 +6,5 @@ class StateMachine(object):
 
     def runAll(self, inputs):
         for i in inputs:
-            print(i)
             self.currentState = self.currentState.next(i)
             self.currentState.run()
