@@ -3,6 +3,7 @@ from State import State
 from .ws_state import WebSocketState
 from WebSocketStateAction import WebSocketStateAction
 from .ws_connecting import WebSocketConnecting
+from .ws_disconnecting import WebSocketDisconnecting
 from constants import actions_constants
 
 
@@ -20,6 +21,7 @@ class WebSocketStarting(WebSocketState):
         if len(self.transitions) == 0:
             self.transitions = {
                 actions_constants.CONNECT: WebSocketConnecting(
-                    self.api_url, self.parameters)
+                    self.api_url, self.parameters),
+                actions_constants.DISCONNECT: WebSocketDisconnecting()
             }
         return WebSocketState.next(self, action)

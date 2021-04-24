@@ -3,6 +3,9 @@ from Client import SocketClient
 from WebSocketStateMachine import WebSocketStateMachine
 from constants import actions_constants
 from constants import client_constants
+import time
+import threading
+from threading import Thread
 
 
 class CBPSocketClient(SocketClient, CBPClient):
@@ -15,6 +18,7 @@ class CBPSocketClient(SocketClient, CBPClient):
 
     def __call__(self, products):
         self.products = products
+
         if not isinstance(self.products, list):
             print("Errorproducts is not a list")
             return
@@ -24,7 +28,11 @@ class CBPSocketClient(SocketClient, CBPClient):
                            'product_ids': self.products, 'channels': self.channels}
         message = 'GET' + '/users/self/verify'
         self.set_headers(message)
-        self.start()
+
+        try:
+            self.start()
+        except KeyboardInterrupt:
+            self.stop()
 
     def set_headers(self, message):
         CBPClient.set_headers(self, message)
@@ -39,11 +47,14 @@ class CBPSocketClient(SocketClient, CBPClient):
         self.state_machine = WebSocketStateMachine(
             actions_constants.START, self.api_url, self.parameters)
         self.state_machine.runAll(
-            [actions_constants.CONNECT, actions_constants.DISCONNECT])
-
-        return
+            [actions_constants.CONNECT])
+        while True:
+            self.state_machine.runAll([actions_constants.LISTEN])
+            time.sleep(1)
 
     def stop(self):
+        print("--- stopping ---")
         if self.state_machine:
             self.state_machine.runAll([actions_constants.DISCONNECT])
+
         return

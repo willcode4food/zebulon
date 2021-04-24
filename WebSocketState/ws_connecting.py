@@ -26,7 +26,6 @@ class WebSocketConnecting(WebSocketState):
     def next(self, action):
         if len(self.transitions) == 0:
             self.transitions = {
-                actions_constants.LISTEN:  WebSocketListening(),
-                actions_constants.DISCONNECT: WebSocketDisconnecting()
+                actions_constants.LISTEN:  WebSocketListening()
             }
         return WebSocketState.next(self, action)
