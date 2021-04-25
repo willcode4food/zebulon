@@ -4,24 +4,15 @@ import hashlib
 import base64
 import time
 
-from client import RestClient
+
+from Client import Client
 
 
-class CBPRestClient(RestClient):
-
+class CBPClient(Client):
     def __init__(self, api_key, api_secret, api_passphrase):
-        self.api_url = 'https://api.pro.coinbase.com'
         self.api_key = api_key
         self.api_secret = api_secret
         self.api_passphrase = api_passphrase
-        self.endpoints = {'product_trades_btc': '/products/BTC-USD/trades'}
-        RestClient.__init__(self, api_key, api_secret, api_passphrase)
-
-    def __call__(self, method, endpoint, body):
-        endpoint_url = self.api_url + self.endpoints[endpoint]
-        self.set_headers(''.join([method, endpoint_url, (body or '')]))
-        return RestClient.__call__(self,
-                                   method, endpoint_url, body)
 
     def set_headers(self, message):
         timestamp = str(time.time())
@@ -33,11 +24,9 @@ class CBPRestClient(RestClient):
             'User-Agent': 'Mosaic/1.0'
         }
         if(message):
-            self.sign_message(''.join([timestamp, message]))
+            self._sign_message(''.join([timestamp, message]))
 
-        RestClient.set_headers(self, self.headers)
-
-    def sign_message(self, message):
+    def _sign_message(self, message):
         message = message.encode('ascii')
         hmac_key = base64.b64decode(self.api_secret)
         signature = hmac.new(hmac_key, message, hashlib.sha256)
