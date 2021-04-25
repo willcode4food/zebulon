@@ -12,8 +12,8 @@ class WebSocketDisconnecting(WebSocketState):
 
     def run(self):
         try:
-            if self.web_socket:
-                self.web_socket.close()
+            if WebSocketState.web_socket:
+                WebSocketState.web_socket.close()
                 print("-- Web Socket Disconnected -- ")
         except WebSocketConnectionClosedException as e:
             raise e
