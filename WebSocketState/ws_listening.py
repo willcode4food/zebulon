@@ -6,6 +6,7 @@ from .ws_keeping_alive import WebSocketKeepingAlive
 from .ws_disconnecting import WebSocketDisconnecting
 from constants import actions_constants
 from datetime import datetime
+import json
 
 
 class WebSocketListening(WebSocketState):
@@ -13,10 +14,10 @@ class WebSocketListening(WebSocketState):
         WebSocketState.__init__(self)
 
     def run(self):
-        current_time = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
-        print("-- Web Socket Listening --" + current_time)
 
-        return
+        data = WebSocketState.web_socket.recv()
+        msg = json.loads(data)
+        print(msg)
 
     def next(self, action):
         if len(self.transitions) == 0:

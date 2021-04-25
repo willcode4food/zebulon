@@ -25,7 +25,7 @@ class CBPSocketClient(SocketClient, CBPClient):
             return
         self.channels = [{"name": "ticker", "product_ids": [
             product_id for product_id in self.products]}]
-        self.sub_params = {'type': 'subscribe',
+        self.parameters = {'type': 'subscribe',
                            'product_ids': self.products, 'channels': self.channels}
         message = 'GET' + '/users/self/verify'
         self.set_headers(message)
