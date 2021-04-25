@@ -2,7 +2,6 @@
 from State import State
 from .ws_state import WebSocketState
 from WebSocketStateAction import WebSocketStateAction
-from .ws_keeping_alive import WebSocketKeepingAlive
 from .ws_disconnecting import WebSocketDisconnecting
 from constants import actions_constants
 from datetime import datetime

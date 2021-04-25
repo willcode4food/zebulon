@@ -22,8 +22,5 @@ class WebSocketStateAction(StateAction):
 WebSocketStateAction.connect = WebSocketStateAction(actions_constants.CONNECT)
 WebSocketStateAction.disconnect = WebSocketStateAction(
     actions_constants.DISCONNECT)
-WebSocketStateAction.keep_alive = WebSocketStateAction(
-    actions_constants.KEEP_ALIVE)
 WebSocketStateAction.listen = WebSocketStateAction(actions_constants.LISTEN)
-WebSocketStateAction.message = WebSocketStateAction(actions_constants.MESSAGE)
 WebSocketStateAction.start = WebSocketStateAction(actions_constants.START)

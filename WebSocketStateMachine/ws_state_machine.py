@@ -3,9 +3,7 @@ from constants import actions_constants
 from WebSocketState import WebSocketStarting
 from WebSocketState import WebSocketConnecting
 from WebSocketState import WebSocketDisconnecting
-from WebSocketState import WebSocketKeepingAlive
 from WebSocketState import WebSocketListening
-from WebSocketState import WebSocketMessaging
 
 
 class WebSocketStateMachine(StateMachine):
@@ -18,10 +16,6 @@ class WebSocketStateMachine(StateMachine):
             stateToInitialize = WebSocketConnecting(url, params)
         if initialState == actions_constants.LISTEN:
             stateToInitialize = WebSocketListening()
-        if initialState == actions_constants.KEEP_ALIVE:
-            stateToInitialize = WebSocketKeepingAlive()
-        if initialState == actions_constants.MESSAGE:
-            stateToInitialize = WebSocketMessaging()
         if initialState == actions_constants.DISCONNECT:
             stateToInitialize = WebSocketDisconnecting()
 
