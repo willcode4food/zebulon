@@ -10,6 +10,7 @@ class WebSocketState(State):
         self.main_thread = None
         self.web_socket = None
         self.action = None
+        self.message = None
 
     def run(self):
         return

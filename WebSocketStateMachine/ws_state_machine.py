@@ -25,4 +25,6 @@ class WebSocketStateMachine(StateMachine):
 
     def runAll(self, inputs):
         StateMachine.runAll(self, inputs)
+        if self.currentState.message:
+            return self.currentState.message
         return

@@ -11,12 +11,13 @@ import json
 class WebSocketListening(WebSocketState):
     def __init__(self):
         WebSocketState.__init__(self)
+        self.message = None
 
     def run(self):
 
         data = WebSocketState.web_socket.recv()
-        msg = json.loads(data)
-        print(msg)
+        self.message = json.loads(data)
+        # print(WebSocketState.message)
 
     def next(self, action):
         if len(self.transitions) == 0:

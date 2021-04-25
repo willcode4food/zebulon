@@ -13,6 +13,7 @@ class CBPSocketClient(SocketClient, CBPClient):
     def __init__(self, api_key, api_secret, api_passphrase):
         CBPClient.__init__(self, api_key, api_secret, api_passphrase)
         SocketClient.__init__(self, api_key, api_secret, api_passphrase)
+        self.message = None
         self.state_machine = None
         self.api_url = client_constants.API_URL_SOCKET
         self.main_thread = Thread(
@@ -56,7 +57,9 @@ class CBPSocketClient(SocketClient, CBPClient):
         while True:
             if not current_running_thread.is_alive:
                 break
-            self.state_machine.runAll([actions_constants.LISTEN])
+            self.message = self.state_machine.runAll(
+                [actions_constants.LISTEN])
+            print(self.message)
             time.sleep(1)
 
     def stop(self, exception):
