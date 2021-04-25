@@ -3,7 +3,6 @@ from .ws_state import WebSocketState
 from WebSocketStateAction import WebSocketStateAction
 from websocket import WebSocketConnectionClosedException
 from constants import actions_constants
-from .ws_exiting import WebSocketExiting
 import sys
 
 
