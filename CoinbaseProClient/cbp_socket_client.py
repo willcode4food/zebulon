@@ -46,6 +46,7 @@ class CBPSocketClient(SocketClient, CBPClient):
         self.parameters['timestamp'] = self.headers['CB-ACCESS-TIMESTAMP']
 
     def start(self, thread_id):
+        print("--- Client Starting ---")
         current_running_thread = current_thread()
         self.state_machine = WebSocketStateMachine(
             actions_constants.START, self.api_url, self.parameters)
@@ -59,7 +60,7 @@ class CBPSocketClient(SocketClient, CBPClient):
             time.sleep(1)
 
     def stop(self, exception):
-        print("--- Stopping ---")
+        print("--- Client Stopping ---")
         if self.state_machine:
             self.state_machine.runAll([actions_constants.DISCONNECT])
         self.main_thread.alive = False

@@ -21,5 +21,5 @@ class WebSocketDisconnecting(WebSocketState):
             return
 
     def next(self, action):
-        print("-- Shutting Down -- ")
+        print("-- Client Shutting Down -- ")
         sys.exit()

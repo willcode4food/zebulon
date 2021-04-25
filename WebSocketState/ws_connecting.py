@@ -16,7 +16,6 @@ class WebSocketConnecting(WebSocketState):
         WebSocketState.__init__(self)
 
     def run(self):
-        # TODO: wrap in try catch
         print("-- Web Socket Connecting -- ")
         WebSocketState.web_socket = create_connection(self.api_url)
         WebSocketState.web_socket.send(json.dumps(self.parameters))
