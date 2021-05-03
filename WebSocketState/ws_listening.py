@@ -12,6 +12,7 @@ class WebSocketListening(WebSocketState):
     def __init__(self):
         WebSocketState.__init__(self)
         self.message = None
+        print("-- Web Socket Disconnected -- ")
 
     def run(self):
 

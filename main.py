@@ -15,4 +15,14 @@ api_passphrase = os.environ.get('COINBASE_PASSPHRASE')
 # print(response)
 
 socket = CBPSocketClient(api_key, api_secret, api_passphrase)
+
+
+@socket.subscribe
+def on_message(message):
+    print(message)
+
+
 socket(["BTC-USD"])
+
+# async def print_message(message):
+#     print('message', message)
