@@ -18,6 +18,7 @@ class CBPSocketClient(SocketClient, CBPClient):
         self.api_url = client_constants.API_URL_SOCKET
         self.main_thread = Thread(
             target=self.start, args=(0,))
+        self.subscribers = []
         self.products = []
 
     def __call__(self, products):
@@ -74,4 +75,5 @@ class CBPSocketClient(SocketClient, CBPClient):
         self.main_thread.join()
 
     def subscribe(self, func):
-        SocketClient.subscribe(self, func)
+        self.subscribers.append(func)
+        return func
