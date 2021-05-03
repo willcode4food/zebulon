@@ -1,7 +1,7 @@
 
 from State import State
 from .ws_state import WebSocketState
-from WebSocketStateAction import WebSocketStateAction
+from .WebSocketStateAction import WebSocketStateAction
 from .ws_connecting import WebSocketConnecting
 from .ws_disconnecting import WebSocketDisconnecting
 from constants import actions_constants

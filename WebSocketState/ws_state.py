@@ -1,5 +1,5 @@
 from State import State
-from WebSocketStateAction import WebSocketStateAction
+from .WebSocketStateAction import WebSocketStateAction
 import sys
 
 

@@ -1,6 +1,6 @@
 from .cbp_client import CBPClient
 from Client import SocketClient
-from WebSocketStateMachine import WebSocketStateMachine
+from WebSocketState.WebSocketStateMachine import WebSocketStateMachine
 from constants import actions_constants
 from constants import client_constants
 import time

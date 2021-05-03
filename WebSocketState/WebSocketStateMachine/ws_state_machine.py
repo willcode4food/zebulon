@@ -1,4 +1,4 @@
-from StateMachine import StateMachine
+from State.StateMachine import StateMachine
 from constants import actions_constants
 from WebSocketState import WebSocketStarting
 from WebSocketState import WebSocketConnecting

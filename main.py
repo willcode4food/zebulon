@@ -23,6 +23,3 @@ def on_message(message):
 
 
 socket(["BTC-USD"])
-
-# async def print_message(message):
-#     print('message', message)
