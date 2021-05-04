@@ -55,14 +55,15 @@ class CBPSocketClient(SocketClient, CBPClient):
             actions_constants.START, self.api_url, self.parameters)
         self.state_machine.runAll(
             [actions_constants.CONNECT])
-
+        message_index = 0
         while True:
             if not current_running_thread.is_alive:
                 break
             self.message = self.state_machine.runAll(
                 [actions_constants.LISTEN])
             for func in self.subscribers:
-                func(self.message)
+                message_index += 1
+                func(self.message, message_index)
 
             time.sleep(1)
 

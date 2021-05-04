@@ -1,4 +1,11 @@
 import os
+import csv
+
+from datetime import datetime
+from threading import Timer
+
+import time
+
 
 from CoinbaseProClient import CBPRestClient
 from CoinbaseProClient import CBPSocketClient
@@ -18,8 +25,30 @@ socket = CBPSocketClient(api_key, api_secret, api_passphrase)
 
 
 @socket.subscribe
-def on_message(message):
-    print(message)
+def on_message(message, message_index):
+
+    if message_index == 2:
+        header = message.keys()
+
+        csv_writer.writerow(header)
+    values = message.values()
+    csv_writer.writerow(message.values())
+    print(values)
 
 
+def exitfunc():
+    csv_writer.writerow("Exit Time" + str(datetime.now()))
+    print("Exit Time", datetime.now())
+    trades.close()
+    os._exit(0)
+
+    # print("Time:  " + str(60.0 - ((time.time() - starttime) % 60.0)))
+    # time.sleep(60.0 - ((time.time() - starttime) % 60.0))
+
+
+Timer(900, exitfunc).start()
+trades = open('trades.csv', 'w')
+csv_writer = csv.writer(trades)
+csv_writer.writerow("Start Time" + str(datetime.now()))
+print("Start Time", datetime.now())
 socket(["BTC-USD"])
