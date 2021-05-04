@@ -12,6 +12,7 @@ class SocketClient(Client):
         self.products = None
         self.channels = None
         self.parameters = {}
+        self.subscribers = []
 
         return
 
@@ -27,3 +28,7 @@ class SocketClient(Client):
 
     def stop(self):
         return
+
+    def subscribe(self, func):
+        self.subscribers.append(func)
+        return func

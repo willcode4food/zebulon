@@ -1,4 +1,4 @@
-from StateMachine import StateMachine
+from State.StateMachine import StateMachine
 from constants import actions_constants
 from WebSocketState import WebSocketStarting
 from WebSocketState import WebSocketConnecting
@@ -25,4 +25,6 @@ class WebSocketStateMachine(StateMachine):
 
     def runAll(self, inputs):
         StateMachine.runAll(self, inputs)
+        if self.currentState.message:
+            return self.currentState.message
         return

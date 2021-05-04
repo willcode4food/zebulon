@@ -1,6 +1,6 @@
 from .cbp_client import CBPClient
 from Client import SocketClient
-from WebSocketStateMachine import WebSocketStateMachine
+from WebSocketState.WebSocketStateMachine import WebSocketStateMachine
 from constants import actions_constants
 from constants import client_constants
 import time
@@ -13,10 +13,12 @@ class CBPSocketClient(SocketClient, CBPClient):
     def __init__(self, api_key, api_secret, api_passphrase):
         CBPClient.__init__(self, api_key, api_secret, api_passphrase)
         SocketClient.__init__(self, api_key, api_secret, api_passphrase)
+        self.message = None
         self.state_machine = None
         self.api_url = client_constants.API_URL_SOCKET
         self.main_thread = Thread(
             target=self.start, args=(0,))
+        self.products = []
 
     def __call__(self, products):
         self.products = products
@@ -29,6 +31,7 @@ class CBPSocketClient(SocketClient, CBPClient):
                            'product_ids': self.products, 'channels': self.channels}
         message = 'GET' + '/users/self/verify'
         self.set_headers(message)
+
         try:
             self.main_thread.start()
             while self.main_thread.is_alive():
@@ -56,7 +59,11 @@ class CBPSocketClient(SocketClient, CBPClient):
         while True:
             if not current_running_thread.is_alive:
                 break
-            self.state_machine.runAll([actions_constants.LISTEN])
+            self.message = self.state_machine.runAll(
+                [actions_constants.LISTEN])
+            for func in self.subscribers:
+                func(self.message)
+
             time.sleep(1)
 
     def stop(self, exception):
@@ -65,3 +72,6 @@ class CBPSocketClient(SocketClient, CBPClient):
             self.state_machine.runAll([actions_constants.DISCONNECT])
         self.main_thread.alive = False
         self.main_thread.join()
+
+    def subscribe(self, func):
+        SocketClient.subscribe(self, func)
