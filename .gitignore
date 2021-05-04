@@ -3,3 +3,4 @@
 tmp.py
 trades.csv
 .DS_Store
+trades*.csv
