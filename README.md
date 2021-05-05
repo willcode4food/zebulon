@@ -18,6 +18,10 @@ You should see something like this:
 
 `/usr/bin/python3`
 
+To install dependencies, execute the following command in the repo's main directory
+
+`pip3 install -r requirements.txt`
+
 To run
 
 `python3 <path to repo>/main.py`
